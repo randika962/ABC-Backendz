@@ -46,7 +46,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity httpSecurity) throws Exception {
 		//allow access to the authenticate and createcustomer urls without token authentication
 		httpSecurity.csrf().disable()
-				.authorizeRequests().antMatchers("/authenticate", "/createbankusers", "/createbankaccount", "/bankstransaction/ABC_Transaction/{id}", "/withdraw", "/deposit", "/transfer").permitAll().
+				.authorizeRequests().antMatchers("/authenticate", "/bankstransaction/ABC_Transaction/{id}", "/createbankusers", "/createbankaccount", "/withdraw", "/deposit", "/transfer", "/bankaccountdelete/{aId}", "/bankusersdelete/{uId}").permitAll().
 						anyRequest().authenticated().and().
 						exceptionHandling().and().sessionManagement()
 				.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
