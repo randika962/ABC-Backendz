@@ -110,6 +110,7 @@ public class BankTransactionController {
 		BankAccount acc =  accountService.getBankAccountById(id);//new
 		
 		response.setContentType("application/pdf");
+		
 		BankPdfExporter pdfService = new BankPdfExporter(accountService,acc);
 		pdfService.CreateBankPdf(response, id);
 		
