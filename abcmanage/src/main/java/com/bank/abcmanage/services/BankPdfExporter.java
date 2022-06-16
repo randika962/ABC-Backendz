@@ -126,7 +126,7 @@ public class BankPdfExporter {
 			tb.addCell(Float.toString(transaction.getTransacAmount()));
 			tb.addCell(transaction.getTransacDecription());
 			tb.addCell(transaction.getTransacType());
-			tb.addCell(transaction.getTransacTime().toString());
+			tb.addCell(transaction.getdate_Time().toString());
 			tb.addCell(Integer.toString(transaction.getaId()));
 			tb.addCell(Integer.toString(transaction.getSourceAccId()));
 			tb.addCell(Integer.toString(transaction.getDestinationAccId()));

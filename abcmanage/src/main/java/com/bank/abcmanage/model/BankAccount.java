@@ -10,6 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
@@ -21,16 +22,9 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public class BankAccount {
 
 	
-	
-	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int aId;
-	private String aNumber;
-	private float aBalance;
-	private int uId;
-	
-	
 	@ManyToOne()
 	//@NotFound(action=NotFoundAction.IGNORE)
 	@JoinColumn(name ="uId", insertable = false, updatable = false, nullable = false, referencedColumnName = "uId")
@@ -39,7 +33,12 @@ public class BankAccount {
 	@OneToMany(mappedBy = "sourceAccount")
 //	@JsonIgnoreProperties("sourceAccount")
 	private List<BankTransaction> transaction;
+	private String aNumber;
+	private float aBalance;
+	private int uId;
 	
+	
+
 	public BankAccount() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -55,8 +54,14 @@ public class BankAccount {
 		this.owner = owner;
 		this.transaction = transaction;
 	}
-
-
+	
+	
+	@Override
+	public String toString() {
+		return "BankAccount [aId=" + aId + ", owner=" + owner + ", transaction=" + transaction + ", aNumber=" + aNumber
+				+ ", aBalance=" + aBalance + ", uId=" + uId + "]";
+	}
+	
 
 	public int getaId() {
 		return aId;
@@ -105,12 +110,6 @@ public class BankAccount {
 	public void setTransaction(List<BankTransaction> transaction) {
 		this.transaction = transaction;
 	}
-	
-	
-	
-
-
-	
 	
 	
 	

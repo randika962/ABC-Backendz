@@ -2,6 +2,8 @@ package com.bank.abcmanage.controller;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
+import javax.validation.Valid;
 import java.util.NoSuchElementException;
 
 import javax.servlet.http.HttpServletResponse;
@@ -9,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,12 +37,22 @@ public class BankUserController {
 	private BankPdfExporter pdfService;
 	
 	@PostMapping("/createbankusers")
-	public BankUser createBankUser(@RequestBody BankUser user)
-	{
+	public String createBankUser(@RequestBody BankUser user) {
 		
-		userService.createBankUser(user);
-		return user;
+		Optional<BankUser> u = userService.findUserByEmail(user.getUserEmail());
+		if(u.isEmpty()) {
+			userService.createBankUser(user);
+			return "User add success";
+		}else {
+			return "User is added already";
+		}
 	}
+//	public BankUser createBankUser(@RequestBody BankUser user)
+//	{
+//		
+//		userService.createBankUser(user);
+//		return user;
+//	}
 	
 	@PutMapping("/updatebankusers/{uId}")
 	public void updateBankUser(@RequestBody BankUser user, @PathVariable int uId)
@@ -83,8 +96,14 @@ public class BankUserController {
 	}
 	*/
 	
+	@GetMapping("/allusers")
+	public List<BankUser> getAllbankUser(){
+		return userService.getAllBankUser();
+	}
+	
+	@CrossOrigin
 	@GetMapping("/bankusers")
-	public ResponseEntity getAllbankUser()
+	public ResponseEntity list()
 	{
 		return ResponseEntity.status(HttpStatus.OK).body(new BankResponse(userService.getAllBankUser(),"Success", "Found"));
 	}
