@@ -33,12 +33,12 @@ public class BankAccountService {
 		accrepo.save(bankaccount);
 	}
 	
-    public void decrementBalance(BankAccount bankaccount, float amount) {
-		
-		bankaccount.setaBalance(amount);
-		
-		accrepo.save(bankaccount);
-	}
+//    public void decrementBalance(BankAccount bankaccount, float amount) {
+//		
+//		bankaccount.setaBalance(amount);
+//		
+//		accrepo.save(bankaccount);
+//	}
 	
 	public BankAccount getBankAccountById(int aid)
 	{
