@@ -1,9 +1,9 @@
 package com.bank.abcmanage.controller;
 
 import java.io.IOException;
+import java.util.List;
 import java.sql.Timestamp;
 import java.time.LocalDate;
-import java.util.List;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletResponse;
@@ -76,32 +76,38 @@ public class BankTransactionController {
 		float tranamount = transaction.getTransacAmount();
 		
 		BankAccount depositacc = accountService.getBankAccountById(aid);
-		float newamount = (accountService.getBankAccountById(aid).getaBalance() - tranamount);
 		
-		accountService.incrementBalance(depositacc, newamount);
-		transactionService.createBankTransaction(transaction);
-		return "Success Withdraw";
+		BankAccount accou = accountService.getBankAccountById(aid);
+		if (accou.getaBalance()<=0 || accou.getaBalance()<=tranamount) {
+			return "Sorry! You haven't enough balance.";
+		}else {
+			float newamount = (accou.getaBalance() - (float) tranamount);
+			accountService.decrementBalance(depositacc, newamount);
+			transactionService.createBankTransaction(transaction);
+			return "Successfully Withdraw!!!!";
+		}		
+		
+//		float newamount = (accountService.getBankAccountById(aid).getaBalance() - tranamount);
+		
+//		accountService.decrementBalance(depositacc, newamount);
+//		transactionService.createBankTransaction(transaction);
+//		return "Success Withdraw";
 	}
 	
 	// endpoint for transfer funds
 	@PostMapping("/transfer")
 	public String createTransfer(@RequestBody BankTransaction transaction) {
 		    System.out.println("Transaction"+transaction.toString());
-		    float tranamount = transaction.getTransacAmount();
-		    
-		    
-		    int aid = transaction.getSourceAccId();
-		    BankAccount sourceacc = accountService.getBankAccountById(aid);
-		    float newsccBalance = (accountService.getBankAccountById(aid).getaBalance() - (float) tranamount);
-		    accountService.incrementBalance(sourceacc, newsccBalance);
-		    
-		    
+			int aid = transaction.getSourceAccId();
 			int destination_id = transaction.getDestinationAccId();
-			BankAccount depositacc = accountService.getBankAccountById(destination_id);			
+			float tranamount = transaction.getTransacAmount();
+			BankAccount sourceacc = accountService.getBankAccountById(aid);
+			BankAccount depositacc = accountService.getBankAccountById(destination_id);
+			float newsccBalance = (accountService.getBankAccountById(aid).getaBalance() - (float) tranamount);
 			float newdesBalance = (accountService.getBankAccountById(destination_id).getaBalance() + (float) tranamount);
+			
+			accountService.incrementBalance(sourceacc, newsccBalance);
 			accountService.incrementBalance(depositacc, newdesBalance);
-			
-			
 			transactionService.createBankTransaction(transaction);
 			return "Success Transfer";
 		}
@@ -119,15 +125,16 @@ public class BankTransactionController {
 		BankAccount acc =  accountService.getBankAccountById(id);//new
 		
 		response.setContentType("application/pdf");
+		
 		BankPdfExporter pdfService = new BankPdfExporter(accountService,acc);
 		pdfService.CreateBankPdf(response, id);
 		
 	}
 	
-	@GetMapping("/filterbanktransaction/{datetime}")
-	public List<BankTransaction> getfilterBydate(@PathVariable String datetime ){
-		Timestamp DateTime = Timestamp.valueOf(datetime);
-		return transactionService.gettransactionBydate(DateTime);
+	@GetMapping("/filterbanktransaction/{transacTime}")
+	public List<BankTransaction> getfilterBydate(@PathVariable String transacTime ){
+		Timestamp DateTime = Timestamp.valueOf(transacTime);
+		return transactionService.getBankTransactionBydate(DateTime);
 				
 	}
 	
