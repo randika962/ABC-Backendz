@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import com.bank.abcmanage.model.BankTransaction;
 import java.sql.Timestamp;
 import java.time.LocalDate;
-
 import com.bank.abcmanage.repositories.BankTransactionRepository;
 
 
@@ -31,21 +30,6 @@ public class BankTransactionService {
 	}
 	
 	
-	
-	
-	
-	public List<BankTransaction> gettransactionBydate(Timestamp date_Time) {
-		return tranrepo.findByDateTime(date_Time).get();
-	}
-	
-	public List<BankTransaction> getfiltertransactionBydate(Timestamp stDate,Timestamp edDate) {
-		return tranrepo.findByDateTimeBetween(stDate, edDate);
-	}
-	
-	
-	
-	
-	
 	public BankTransaction getBankTransactionById(int tid)
 	{
 		return tranrepo.findById(tid).get();
@@ -54,6 +38,14 @@ public class BankTransactionService {
 	public void deleteBankTransactionById(int tid)
 	{
 		tranrepo.deleteById(tid);
+	}
+	
+	public List<BankTransaction> getBankTransactionBydate(Timestamp transacTime) {
+		return tranrepo.findBytransacTime(transacTime).get();
+	}
+	
+	public List<BankTransaction> getfiltertransactionBydate(Timestamp stDate,Timestamp edDate) {
+		return tranrepo.findBytransacTimeBetween(stDate, edDate);
 	}
 	
 }
