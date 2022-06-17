@@ -16,29 +16,32 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `bankaccount`
+-- Table structure for table `bankusers`
 --
 
-DROP TABLE IF EXISTS `bankaccount`;
+DROP TABLE IF EXISTS `bankusers`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `bankaccount` (
-  `aId` int NOT NULL AUTO_INCREMENT,
-  `aNumber` varchar(45) NOT NULL,
-  `aBalance` int NOT NULL,
-  `uId` int NOT NULL,
-  PRIMARY KEY (`aId`)
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE `bankusers` (
+  `uId` int NOT NULL AUTO_INCREMENT,
+  `fName` varchar(45) NOT NULL,
+  `lName` varchar(45) NOT NULL,
+  `addres` varchar(45) NOT NULL,
+  `UserEmail` varchar(45) NOT NULL,
+  `password` varchar(45) NOT NULL,
+  `type` varchar(1) NOT NULL,
+  PRIMARY KEY (`uId`)
+) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `bankaccount`
+-- Dumping data for table `bankusers`
 --
 
-LOCK TABLES `bankaccount` WRITE;
-/*!40000 ALTER TABLE `bankaccount` DISABLE KEYS */;
-INSERT INTO `bankaccount` VALUES (1,'acc012345789',1000000,1),(2,'acc008674351',5000000,2),(3,'acc988958907',5000000,3),(4,'acc543954327',4500000,4),(5,'acc309754321',2000000,5),(6,'acc870054399',1000000,6),(7,'acc096423678',2600000,7);
-/*!40000 ALTER TABLE `bankaccount` ENABLE KEYS */;
+LOCK TABLES `bankusers` WRITE;
+/*!40000 ALTER TABLE `bankusers` DISABLE KEYS */;
+INSERT INTO `bankusers` VALUES (1,'Srimal','Herath','890/Watapuluwa','sri@gmail.com','1234uiyt','A'),(2,'Sulakshana','Gunathilakke','567/Alawathugoda','sula@gmail.com','0987cvbn','C'),(3,'Abdulla','Izer','456/Kegalle','abba@gmail.com','5678lmnb','E'),(4,'Dananjalee','Kaushalya','567/Digana','dana@gmail.com','3456cdfg','E'),(5,'Nikeshala','Madubhashini','876/Mawanella','niki@gmail.com','0985hyre','E'),(6,'Deshan','Wickramaarchchi','345/Polonnaruwa','desh@gmail.com','2843kutr','C'),(7,'Jithmi','Dassanayake','785/Galle','jimmy@gmail.com','2479kofd','C'),(8,'Dilki','Watthethnna','367/Kurunagala','dilki@gmail.com','3790lpok','E');
+/*!40000 ALTER TABLE `bankusers` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -50,4 +53,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-06-08  9:57:30
+-- Dump completed on 2022-06-17 19:33:26
