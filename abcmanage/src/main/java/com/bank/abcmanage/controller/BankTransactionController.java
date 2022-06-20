@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.List;
 import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.util.NoSuchElementException;
+import ch.qos.logback.classic.Logger;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletResponse;
@@ -97,19 +99,35 @@ public class BankTransactionController {
 	// endpoint for transfer funds
 	@PostMapping("/transfer")
 	public String createTransfer(@RequestBody BankTransaction transaction) {
+		try {
 		    System.out.println("Transaction"+transaction.toString());
 			int aid = transaction.getSourceAccId();
 			int destination_id = transaction.getDestinationAccId();
 			float tranamount = transaction.getTransacAmount();
 			BankAccount sourceacc = accountService.getBankAccountById(aid);
 			BankAccount depositacc = accountService.getBankAccountById(destination_id);
-			float newsccBalance = (accountService.getBankAccountById(aid).getaBalance() - (float) tranamount);
-			float newdesBalance = (accountService.getBankAccountById(destination_id).getaBalance() + (float) tranamount);
 			
-			accountService.incrementBalance(sourceacc, newsccBalance);
-			accountService.incrementBalance(depositacc, newdesBalance);
-			transactionService.createBankTransaction(transaction);
-			return "Success Transfer";
+		
+			if(sourceacc.getaBalance()<=0 || sourceacc.getaBalance()<=tranamount) {
+				return "Sorry! Can't Transfer, You haven't enough Account balance";
+			}else {
+				float newsccBalance = (accountService.getBankAccountById(aid).getaBalance() - (float) tranamount);
+				float newdesBalance = (accountService.getBankAccountById(destination_id).getaBalance() + (float) tranamount);
+				
+				accountService.incrementBalance(sourceacc, newsccBalance);
+				accountService.incrementBalance(depositacc, newdesBalance);
+				transactionService.createBankTransaction(transaction);
+				return "Success Transfer";
+			}	
+			
+		}catch(NoSuchElementException e) {
+			if(e != null) {
+				return "This user account is not in the system";
+			}
+			return null;
+			
+		}
+		
 		}
 	
 	@DeleteMapping("/transactiondelete/{tId}")

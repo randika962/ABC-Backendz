@@ -32,6 +32,7 @@ public class BankTransactionService {
 	
 	public BankTransaction getBankTransactionById(int tid)
 	{
+		System.out.print("This is tid"+tid);
 		return tranrepo.findById(tid).get();
 	}
 	
@@ -45,6 +46,8 @@ public class BankTransactionService {
 	}
 	
 	public List<BankTransaction> getfiltertransactionBydate(Timestamp stDate,Timestamp edDate) {
+		System.out.print(stDate);
+		System.out.print("This is get filter transaction by date");
 		return tranrepo.findBytransacTimeBetween(stDate, edDate);
 	}
 	
