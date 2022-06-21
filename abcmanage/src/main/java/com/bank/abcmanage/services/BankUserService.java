@@ -62,8 +62,12 @@ public class BankUserService {
 		userrepo.deleteById(uid);
 	}
 	
-	public Optional<BankUser> findUserByEmail(String username) {
-		return userrepo2.findByUserEmail(username);
+//	public Optional<BankUser> findUserByEmail(String username) {
+	public Optional<BankUser> findUserByEmail(String email) {
+	
+		System.out.println(email);
+		Optional<BankUser> u = userrepo2.findByUserEmail(email);
+		return u;
 	}
 
 }
