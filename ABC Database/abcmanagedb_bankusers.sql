@@ -30,7 +30,8 @@ CREATE TABLE `bankusers` (
   `UserEmail` varchar(45) NOT NULL,
   `password` varchar(45) NOT NULL,
   `type` varchar(1) NOT NULL,
-  PRIMARY KEY (`uId`)
+  PRIMARY KEY (`uId`),
+  UNIQUE KEY `UserEmail_UNIQUE` (`UserEmail`)
 ) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -53,4 +54,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-06-17 19:33:26
+-- Dump completed on 2022-06-22  0:49:11

@@ -16,31 +16,27 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `bankaccount`
+-- Table structure for table `bankforgotpassword`
 --
 
-DROP TABLE IF EXISTS `bankaccount`;
+DROP TABLE IF EXISTS `bankforgotpassword`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `bankaccount` (
-  `aId` int NOT NULL AUTO_INCREMENT,
-  `aNumber` varchar(45) NOT NULL,
-  `aBalance` int NOT NULL,
+CREATE TABLE `bankforgotpassword` (
   `uId` int NOT NULL,
-  PRIMARY KEY (`aId`),
-  KEY `FK6i59br5ilgwx6wgmn2ykcw17u` (`uId`),
-  CONSTRAINT `FK6i59br5ilgwx6wgmn2ykcw17u` FOREIGN KEY (`uId`) REFERENCES `bankusers` (`uId`)
-) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `recoveryCode` int DEFAULT NULL,
+  `lastDayUpdate` datetime NOT NULL,
+  PRIMARY KEY (`uId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `bankaccount`
+-- Dumping data for table `bankforgotpassword`
 --
 
-LOCK TABLES `bankaccount` WRITE;
-/*!40000 ALTER TABLE `bankaccount` DISABLE KEYS */;
-INSERT INTO `bankaccount` VALUES (1,'acc012345789',1000000,1),(2,'acc008674351',5000000,2),(3,'acc988958907',5000000,3),(4,'acc087647785',6000000,4),(5,'acc345677709',8500000,5),(6,'acc795331567',4414000,6),(7,'acc808453246',1273000,7),(8,'acc980754326',11700000,8);
-/*!40000 ALTER TABLE `bankaccount` ENABLE KEYS */;
+LOCK TABLES `bankforgotpassword` WRITE;
+/*!40000 ALTER TABLE `bankforgotpassword` DISABLE KEYS */;
+/*!40000 ALTER TABLE `bankforgotpassword` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
